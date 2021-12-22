@@ -1,9 +1,12 @@
 //how to require a module
 const fs = require("fs");
-/*
 //fs stands for file system used for
 //reading and writing in files
 
+const http = require("http");
+
+//FILES
+/*
 // fs.readFileSync(path,encoding)
 const textIn = fs.readFileSync("./txt/input.txt", "utf-8");
 //Sync stands for synchronous(BLOCKING CODE)
@@ -22,7 +25,7 @@ const textOut = `this is what we know about the avocado ${textIn}.\nCreated on $
 fs.writeFileSync("./txt/output.txt", textOut);
 
 console.log("File Written");
-*/
+
 ///////////////////////////////////////////////////////////////////
 //Non-Blocking, asynchronous way
 
@@ -43,3 +46,19 @@ fs.readFile("./txt/start.txt", "utf-8", (err, data1) => {
   });
 });
 console.log("Reading the file");
+*/
+//////////////////////////////////////
+//SERVER
+//
+
+//request object and respond object
+const server = http.createServer((req, res) => {
+  console.log(req);
+
+  res.end("Hello from the server");
+});
+// above code executes on every new requests
+
+server.listen(8000, "127.0.0.1", () => {
+  console.log("Listening to requests on port 8000");
+});
