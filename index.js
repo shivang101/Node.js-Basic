@@ -4,6 +4,7 @@ const fs = require("fs");
 //reading and writing in files
 
 const http = require("http");
+const url = require("url");
 
 //FILES
 /*
@@ -53,9 +54,23 @@ console.log("Reading the file");
 
 //request object and respond object
 const server = http.createServer((req, res) => {
-  console.log(req);
+  console.log(req.url);
 
-  res.end("Hello from the server");
+  //Routing
+  const pathName = req.url;
+
+  if (pathName === "/overview" || pathName === "/") {
+    res.end("This is the overview Page");
+  } else if (pathName === "/product") {
+    res.end("This is the Product page");
+  } else {
+    res.writeHead(404, {
+      "Content-type": "text/html",
+      "my-own-header": "hello-world", //made up header
+      //these header and status code must be set before res.end
+    });
+    res.end("<h1>This Page could not be found</h1>");
+  }
 });
 // above code executes on every new requests
 
