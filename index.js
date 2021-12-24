@@ -51,6 +51,8 @@ console.log("Reading the file");
 //////////////////////////////////////
 //SERVER
 //
+const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
+const dataObj = JSON.parse(data); //json to javascript here array of objects(string to object)
 
 //request object and respond object
 const server = http.createServer((req, res) => {
@@ -63,7 +65,13 @@ const server = http.createServer((req, res) => {
     res.end("This is the overview Page");
   } else if (pathName === "/product") {
     res.end("This is the Product page");
+  } else if (pathName === "/api") {
+    res.writeHead(200, {
+      "Content-type": "application/json",
+    });
+    res.end(data); ///can only send back a string
   } else {
+    //status code , object(optional)
     res.writeHead(404, {
       "Content-type": "text/html",
       "my-own-header": "hello-world", //made up header
