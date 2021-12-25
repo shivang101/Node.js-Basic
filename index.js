@@ -40,11 +40,11 @@ const dataObj = JSON.parse(data); //json to javascript here array of objects(str
 const server = http.createServer((req, res) => {
   console.log(req.url);
 
+  const { query, pathname } = url.parse(req.url, true);
   //Routing
-  const pathName = req.url;
 
   //Overview Page
-  if (pathName === "/overview" || pathName === "/") {
+  if (pathname === "/overview" || pathname === "/") {
     res.writeHead(200, { "content-type": "text/html" });
 
     const cardsHtml = dataObj
@@ -55,11 +55,15 @@ const server = http.createServer((req, res) => {
     res.end(output);
   }
   //Product Page
-  else if (pathName === "/product") {
-    res.end("This is the Product page");
+  else if (pathname === "/product") {
+    res.writeHead(200, { "content-type": "text/html" });
+
+    const product = dataObj[query.id];
+    const output = replaceTemplate(tempProduct, product);
+    res.end(output);
   }
   //API
-  else if (pathName === "/api") {
+  else if (pathname === "/api") {
     res.writeHead(200, {
       "Content-type": "application/json",
     });
