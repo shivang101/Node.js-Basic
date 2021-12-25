@@ -45,8 +45,15 @@ const server = http.createServer((req, res) => {
 
   //Overview Page
   if (pathname === "/overview" || pathname === "/") {
-    res.writeHead(200, { "content-type": "text/html" });
+    // res.writeHead(301, { "Location": "/about" });
+    // res.end();
 
+    res.statusCode = 301;
+    res.setHeader("Location", "/about");
+    res.end();
+  }
+  //REDIRECTING PAGES
+  else if (pathname === "/about") {
     const cardsHtml = dataObj
       .map((el) => replaceTemplate(tempCard, el))
       .join("");
