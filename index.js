@@ -48,7 +48,7 @@ const server = http.createServer((req, res) => {
     res.end(output);
   }
   //Product Page
-  else if (pathname === "/product") {
+  else if (pathname === "/products") {
     res.writeHead(200, { "content-type": "text/html" });
 
     const product = dataObj[query.id];
