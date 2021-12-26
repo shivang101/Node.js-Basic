@@ -11,6 +11,5 @@ module.exports = (temp, product) => {
   if (!product.organic) {
     output = output.replace(/{%NOT_ORGANIC%}/g, "not-organic");
   }
-
   return output;
 };
