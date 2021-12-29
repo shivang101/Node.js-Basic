@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/shivang101/Node.js-Basic#readme",
   "dependencies": {
+    "express": "^4.17.2",
     "slugify": "^1.6.4"
   },
   "devDependencies": {
