@@ -31,9 +31,13 @@ const slugs = dataObj.map((el) =>
 );
 console.log(slugs);
 
+for (item of dataObj) {
+  item.id = slugify(item.productName, { lower: true, replacement: "--" });
+}
+
 //request object and respond object
 const server = http.createServer((req, res) => {
-  console.log(req.url);
+  // console.log(url.parse(req.url, true));
 
   const { query, pathname } = url.parse(req.url, true);
   //Routing
@@ -59,8 +63,11 @@ const server = http.createServer((req, res) => {
   //Product Page
   else if (pathname === "/product") {
     res.writeHead(200, { "content-type": "text/html" });
+    const x = pathname.slice(8);
+    console.log(x);
 
-    const product = dataObj[query.id];
+    const product = dataObj.find((el) => el.id === query.id);
+    // const product = dataObj[query.id];
     const output = moduleFunction(tempProduct, product);
     res.end(output);
   }
