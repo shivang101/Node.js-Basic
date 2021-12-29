@@ -37,7 +37,7 @@ for (item of dataObj) {
 
 //request object and respond object
 const server = http.createServer((req, res) => {
-  // console.log(url.parse(req.url, true));
+  console.log(url.parse(req.url, true));
 
   const { query, pathname } = url.parse(req.url, true);
   //Routing
@@ -63,8 +63,6 @@ const server = http.createServer((req, res) => {
   //Product Page
   else if (pathname === "/product") {
     res.writeHead(200, { "content-type": "text/html" });
-    const x = pathname.slice(8);
-    console.log(x);
 
     const product = dataObj.find((el) => el.id === query.id);
     // const product = dataObj[query.id];
