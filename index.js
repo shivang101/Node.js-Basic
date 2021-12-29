@@ -2,6 +2,8 @@
 const fs = require("fs");
 const http = require("http");
 const url = require("url");
+
+const slugify = require("slugify");
 //own modules
 const moduleFunction = require("./Modules/replaceTemplate");
 //////////////////////////////////////
@@ -21,6 +23,13 @@ const tempProduct = fs.readFileSync(
 );
 const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
 const dataObj = JSON.parse(data); //json to javascript here array of objects(string to object)
+
+console.log(slugify("Fresh Avocados", { lower: true }));
+
+const slugs = dataObj.map((el) =>
+  slugify(el.productName, { lower: true, replacement: "--" })
+);
+console.log(slugs);
 
 //request object and respond object
 const server = http.createServer((req, res) => {
@@ -48,7 +57,7 @@ const server = http.createServer((req, res) => {
     res.end(output);
   }
   //Product Page
-  else if (pathname === "/products") {
+  else if (pathname === "/product") {
     res.writeHead(200, { "content-type": "text/html" });
 
     const product = dataObj[query.id];
